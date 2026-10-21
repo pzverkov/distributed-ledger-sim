@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3] - 2026-10-21
+
+### Security
+- Update golang.org/x/net to 0.61.0 (GO-2026-6617) and source-map-js to 1.2.2
+
+### Changed
+- Update web, Go and Rust dependencies, including OpenTelemetry 0.33, async-nats 0.50 and tower-http 0.7
+- CI fetches the latest Go patch release so stdlib fixes are picked up
+
 ## [0.4.2] - 2026-08-25
 
 ### Added
