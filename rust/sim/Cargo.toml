@@ -13,16 +13,16 @@ deadpool-postgres = "0.14"
 time = { version = "0.3.47", features = ["serde", "formatting"] }
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.23", features = ["env-filter", "json", "fmt"] }
-async-nats = "0.49.1"
-opentelemetry = "0.32.0"
-opentelemetry-otlp = { version = "0.32.0", features = ["http-proto", "reqwest-blocking-client"] }
-opentelemetry_sdk = "0.32.1"
-tracing-opentelemetry = "0.33.0"
+async-nats = "0.50"
+opentelemetry = "0.33"
+opentelemetry-otlp = { version = "0.33", features = ["http-proto", "reqwest-blocking-client"] }
+opentelemetry_sdk = "0.33"
+tracing-opentelemetry = "0.34"
 prometheus = "0.14.0"
 sha2 = "0.11"
 hex = "0.4"
 tokio-util = { version = "0.7", features = ["rt"] }
-tower-http = { version = "0.6", features = ["timeout", "trace"] }
+tower-http = { version = "0.7", features = ["timeout", "trace"] }
 futures = "0.3"
 async-trait = "0.1"
 rdkafka = { version = "0.39", features = ["tokio"], optional = true }
