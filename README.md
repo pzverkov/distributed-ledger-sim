@@ -1,4 +1,6 @@
-# Time Ledger Sim (Go + Rust)
+# Time Ledger: A Go and Rust Distributed-Systems Simulation
+
+A distributed-systems lab for ledger correctness and multi-region resilience. Implements a time-denominated double-entry ledger in Go and Rust, with transactional messaging, idempotent processing, failure injection, reconciliation, observability and an operator console.
 
 A production-flavored simulation backend for a "time-currency" double-entry ledger with:
 - Double-entry ledger (postings), integer units (1 unit = 1 second)
