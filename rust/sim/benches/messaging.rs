@@ -1,4 +1,5 @@
-use criterion::{Criterion, black_box, criterion_group, criterion_main};
+use criterion::{Criterion, criterion_group, criterion_main};
+use std::hint::black_box;
 use time_ledger_sim_rust::messaging::store::{ZoneStat, fold_stats, fraud_verdict};
 
 fn bench_pure(c: &mut Criterion) {
