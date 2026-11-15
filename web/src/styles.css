@@ -227,3 +227,22 @@ button,input,select,textarea{ font: inherit; color: inherit; }
   color: var(--accent);
   border-bottom-color: rgba(96,165,250,.3);
 }
+
+/* zone map */
+.zmap{ width:100%; height:auto; max-height:340px; display:block; }
+.zmap .zone{ cursor:pointer; outline:none; }
+.zmap .zone .core, .zmap .zone .ring{ transition: r .18s ease, stroke .18s ease, fill .18s ease; }
+.zmap .zone:hover .ring{ stroke: rgba(148,163,184,.95); }
+.zmap .zone:focus-visible .ring{ stroke: rgba(147,197,253,1); stroke-width: 3; }
+.zmap .zone .hit{ fill: transparent; }
+.zmap .pulse{ transform-box: fill-box; transform-origin: center; animation: zpulse 2.2s ease-out infinite; }
+@keyframes zpulse{ 0%{ opacity:.55; transform:scale(1); } 100%{ opacity:0; transform:scale(2.1); } }
+.zmap .tip{ pointer-events:none; opacity:0; transition: opacity .15s ease; }
+.zmap .zone:hover .tip, .zmap .zone:focus-visible .tip, .zmap .zone.sel .tip{ opacity:1; }
+.zlegend{ display:flex; gap:14px; flex-wrap:wrap; margin-top:8px; font-size:12px; color:var(--muted); }
+.zlegend span{ display:inline-flex; align-items:center; gap:6px; }
+.zlegend i{ width:10px; height:10px; border-radius:99px; display:inline-block; }
+@media (prefers-reduced-motion: reduce){
+  .zmap .pulse{ animation:none; opacity:0; }
+  .zmap .zone .core, .zmap .zone .ring, .zmap .tip{ transition:none; }
+}
