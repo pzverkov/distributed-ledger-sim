@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- Update tokio to 1.54.1
+
+### Changed
+- Zone map draws real world geography (Natural Earth 110m) with zones placed by latitude and longitude
+- Zone map is keyboard and screen reader accessible, shows status by glyph as well as color, and adds hover and focus tooltips, a live status summary, a legend and a pulse on down zones only (respects reduced motion)
+- Update async-nats, pgx, nats.go, vite and @vitejs/plugin-react
+
 ## [0.4.3] - 2026-10-21
 
 ### Security
