@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Update async-nats 0.52, pgx 5.13, vite 8.3.8 and @vitejs/plugin-react 6.3
+
 ## [0.6.0] - 2026-11-16
 
 ### Added
