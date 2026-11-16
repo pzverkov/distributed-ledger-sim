@@ -496,7 +496,7 @@ export default function App() {
                   return (
                     <div
                       key={meta.id}
-                      className={`zoneTile ${selected ? "selected" : ""} ${inRadius ? "radius" : ""}`}
+                      className={`zoneTile st-${clsStatus(st)} ${selected ? "selected" : ""} ${inRadius ? "radius" : ""}`}
                       onClick={() => setSelectedZoneId(meta.id)}
                       role="button"
                       aria-label={`Select ${meta.id}`}
@@ -559,6 +559,35 @@ export default function App() {
                     </div>
                   </div>
                   <div className="card-b">
+                    {selectedZone && selectedZone.status !== "OK" && controls ? (() => {
+                      const rec = recommendedControlsFor(selectedZone.status);
+                      const inEffect =
+                        controls.writes_blocked === rec.writes_blocked &&
+                        controls.cross_zone_throttle === rec.cross_zone_throttle &&
+                        controls.spool_enabled === rec.spool_enabled;
+                      const cls = clsStatus(selectedZone.status);
+                      return (
+                        <div className={`guide ${cls}`} role="status">
+                          <div className="gt">
+                            {selectedZone.status === "DEGRADED" ? "Degraded: stabilizing" : "Down: containing"}
+                          </div>
+                          <div className="gm">{rec.rationale}</div>
+                          <div className="gm">
+                            {inEffect
+                              ? "Playbook controls are in effect."
+                              : `Controls differ from the playbook (writes ${rec.writes_blocked ? "blocked" : "open"}, throttle ${rec.cross_zone_throttle}%, spool ${rec.spool_enabled ? "on" : "off"}).`}
+                          </div>
+                          {inEffect ? null : (
+                            <div>
+                              <button className="btn tonal" disabled={busy} onClick={() => applyRecommendedControls()}>
+                                Apply playbook
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })() : null}
+
                     <div className="small" style={{ marginBottom: 8 }}>
                       Use these toggles to contain blast radius during outages. The map highlights dependent zones.
                     </div>

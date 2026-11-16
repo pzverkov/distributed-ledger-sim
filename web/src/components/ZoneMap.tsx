@@ -44,8 +44,8 @@ export default function ZoneMap(props: Props) {
       <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className="zmap" role="group" aria-label="Zone status map">
         <defs>
           <linearGradient id="zm-sea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="rgba(96,165,250,.10)" />
-            <stop offset="1" stopColor="rgba(15,23,42,.30)" />
+            <stop offset="0" stopColor="rgba(74,222,128,.10)" />
+            <stop offset="1" stopColor="rgba(14,21,17,.40)" />
           </linearGradient>
         </defs>
         <rect width={MAP_W} height={MAP_H} rx="14" fill="url(#zm-sea)" stroke="rgba(36,48,71,.7)" />
@@ -57,7 +57,7 @@ export default function ZoneMap(props: Props) {
           const x = Math.round(((lo + 180) / 360) * MAP_W);
           return <line key={`o${lo}`} y1="0" y2={MAP_H} x1={x} x2={x} stroke="rgba(148,163,184,.07)" />;
         })}
-        <path d={WORLD_PATH} fill="rgba(30,41,59,.65)" stroke="rgba(100,116,139,.45)" strokeWidth=".5" />
+        <path d={WORLD_PATH} fill="rgba(36,54,43,.85)" stroke="rgba(130,165,140,.4)" strokeWidth=".5" />
 
         {ZONES.map(meta => {
           const z = lookup.get(meta.id);
@@ -103,7 +103,7 @@ export default function ZoneMap(props: Props) {
                 className="ring"
                 r={selected ? 15 : 13}
                 fill="rgba(15,23,42,.95)"
-                stroke={selected ? "rgba(96,165,250,.95)" : "rgba(71,85,105,.9)"}
+                stroke={selected ? "rgba(143,227,181,.95)" : "rgba(71,85,105,.9)"}
                 strokeWidth={selected ? 2.5 : 1.5}
               />
               <circle className="core" r={8} fill={color} />
