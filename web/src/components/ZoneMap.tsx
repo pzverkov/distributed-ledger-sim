@@ -8,6 +8,7 @@ type Props = {
   zones: Zone[];
   selectedId?: string;
   highlightIds?: string[];
+  incidentCounts?: Map<string, { info: number; warn: number; crit: number }>;
   onSelect: (id: string) => void;
 };
 
@@ -65,6 +66,12 @@ export default function ZoneMap(props: Props) {
           const selected = props.selectedId === meta.id;
           const inRadius = highlight.has(meta.id);
           const select = () => props.onSelect(meta.id);
+          // Only actionable incidents (warn, crit) badge the map; info stays in the tiles.
+          const ic = props.incidentCounts?.get(meta.id);
+          const crit = ic?.crit ?? 0;
+          const open = crit + (ic?.warn ?? 0);
+          const badgeColor = crit > 0 ? "rgba(239,68,68,1)" : "rgba(245,158,11,1)";
+          const incidentLabel = open > 0 ? `, ${open} open ${crit > 0 ? "incidents including critical" : "incidents"}` : "";
           // keep the label inside the frame near the map edges
           const tipW = meta.label.length * 6.2 + 34;
           const tipX = Math.max(4 - meta.x, Math.min(MAP_W - 4 - tipW - meta.x, -tipW / 2));
@@ -78,7 +85,7 @@ export default function ZoneMap(props: Props) {
               role="button"
               tabIndex={0}
               aria-pressed={selected}
-              aria-label={`${meta.label}, zone ${meta.n}, ${word}${inRadius ? ", in blast radius" : ""}`}
+              aria-label={`${meta.label}, zone ${meta.n}, ${word}${incidentLabel}${inRadius ? ", in blast radius" : ""}`}
               onClick={select}
               onKeyDown={e => {
                 if (e.key === "Enter" || e.key === " ") {
@@ -103,6 +110,14 @@ export default function ZoneMap(props: Props) {
               <text textAnchor="middle" y="3.5" fill="rgba(0,0,0,.9)" fontSize="10" fontWeight="800" pointerEvents="none">
                 {glyph || meta.n}
               </text>
+              {open > 0 ? (
+                <g transform="translate(11,-11)" pointerEvents="none">
+                  <circle r="7.5" fill={badgeColor} stroke="rgba(15,23,42,1)" strokeWidth="1.5" />
+                  <text textAnchor="middle" y="3" fill="rgba(0,0,0,.92)" fontSize="9" fontWeight="800">
+                    {open > 9 ? "9+" : open}
+                  </text>
+                </g>
+              ) : null}
               <g className="tip" transform={`translate(${tipX},${tipY})`}>
                 <rect width={tipW} height="24" rx="7" fill="rgba(2,6,23,.94)" stroke="rgba(71,85,105,.8)" />
                 <circle cx="12" cy="12" r="4" fill={color} />
@@ -124,6 +139,10 @@ export default function ZoneMap(props: Props) {
             {STATUS[s].glyph ? ` (${STATUS[s].glyph})` : ""}
           </span>
         ))}
+        <span>
+          <i style={{ background: "rgba(239,68,68,1)", width: 10, height: 10 }} />
+          open incidents (badge)
+        </span>
         <span>
           <i style={{ border: "1.5px dashed rgba(245,158,11,.8)" }} />
           blast radius
