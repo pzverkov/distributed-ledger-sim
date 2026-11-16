@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Zone map shows a badge with the count of open warn and critical incidents per zone
 - Code of conduct, issue templates and a pull request template
+- Degraded and down zones show a guidance banner in Controls: what the state means, whether the playbook controls are in effect, and a one-click apply when they differ
+
+### Changed
+- Console moves to a Material 3 Expressive look: green-tinted tonal surfaces, a 4 and 8dp spacing grid, larger corner radii, pill buttons, status-tinted zone tiles and self-hosted Google Sans Flex
 
 ## [0.5.0] - 2026-11-15
 
@@ -33,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.2] - 2026-08-25
 
 ### Added
+- Degraded and down zones show a guidance banner in Controls: what the state means, whether the playbook controls are in effect, and a one-click apply when they differ
 - Go vs Rust backend benchmark writeup in `docs/benchmarks.md`
 
 ### Fixed
