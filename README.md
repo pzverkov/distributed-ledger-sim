@@ -15,8 +15,8 @@ A production-flavored simulation backend for a "time-currency" double-entry ledg
 
 Two backends sharing one HTTP API (validated in CI by Schemathesis). The Rust
 backend is ahead in messaging and periodic ops jobs; see the [parity matrix](docs/parity-matrix.md).
-- `go/` (Go 1.26+) - primary implementation
-- `rust/sim/` (Rust edition 2024) - modular implementation, ahead on messaging/ops
+- `rust/sim/` (Rust edition 2024) - reference implementation, owns messaging and ops ([ADR 0002](docs/adr/0002-rust-reference-backend.md))
+- `go/` (Go 1.26+) - compatible HTTP implementation, full API parity
 
 ## Dashboard (web/)
 

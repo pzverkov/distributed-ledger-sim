@@ -102,17 +102,16 @@ We start as a monorepo for speed. Later, we split without rewriting.
 
 ## Next Up (ordered by product value per effort)
 
-Shipped in 0.5.0: tokio 1.54.1 fix, a geographic zone map with keyboard and screen reader support, dependency refresh.
+Shipped in 0.6.0: incident badges on the zone map, a degraded and down guidance banner, a Material 3 console, community health files. Shipped in 0.5.0: tokio 1.54.1 fix and a geographic, accessible zone map.
 
 1. **Operator signal on the map** (#184). Incident badges per zone first (frontend only), then a reconciliation panel.
-   **Trade-off:** the panel needs a new endpoint on both backends and Go has no reconciliation job, so it ships Rust-only with an honest "not available" on Go.
-2. **Decide the Go and Rust parity stance** (#185). Record an ADR: close the gap, or declare Rust the reference backend.
-   **Trade-off:** parity doubles messaging maintenance, a declared gap is cheaper but weakens the "primary implementation" claim. Decide before porting anything.
+   **Trade-off:** the panel needs a new endpoint on both backends and Go has no reconciliation job, so it ships Rust-only with an honest "not available" on Go (Rust is the reference backend, see ADR 0002).
+2. **Rust write-path performance** (#198, #199). Cut round trips and row-lock hold time in the transfer path, then lift the outbox publisher ceiling.
+   **Trade-off:** a single-statement write is faster but harder to read, so measure each step against the hot-pair benchmark and keep the gain only if it holds. Research in `docs/rust-performance-research.md`.
 3. **Attested releases with an SBOM** (#186). CycloneDX SBOMs, digest-pinned base images, build provenance, signed tags.
    **Trade-off:** digest pins add Dependabot churn, and admin merges keep Scorecard Code-Review at 0, which is accepted for a solo maintainer.
 4. **Incident runbook checklists** (#187). Stored in `incident.details` JSON, audited per step.
    **Trade-off:** no migration and both backends stay compatible, queries stay weak until reporting needs a table.
-5. **Community health files** (#188). Small, raises the community profile from 71 to 100 percent.
 
 ### Later
 - Map zoom and pan, only if zones grow beyond ten or operators ask for detail.

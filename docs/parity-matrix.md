@@ -1,8 +1,9 @@
 # Go vs Rust parity matrix
 
 Both backends implement the same HTTP API (validated in CI by Schemathesis against
-`api/openapi.yaml`). They diverge in messaging and in a few periodic ops jobs,
-where the Rust backend is currently ahead.
+`api/openapi.yaml`). They diverge in messaging and in a few periodic ops jobs.
+The Rust backend is the reference implementation and the Go gaps below are
+intentional ([ADR 0002](adr/0002-rust-reference-backend.md)).
 
 ## HTTP API (full parity)
 
