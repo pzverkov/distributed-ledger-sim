@@ -100,22 +100,24 @@ We start as a monorepo for speed. Later, we split without rewriting.
 
 ---
 
-## Improvement Backlog (High ROI First)
+## Next Up (ordered by product value per effort)
 
-### Immediate
-- Lockfiles committed (go.sum, package-lock, Cargo.lock)
-- CI: govulncheck + cargo audit + npm audit gating
-- `/v1/version` displayed in UI (already present in hardened plan)
+Shipped in 0.5.0: tokio 1.54.1 fix, a geographic zone map with keyboard and screen reader support, dependency refresh.
 
-### Next
-- Add dependency graph editor in UI (instead of hardcoded deps)
-- Add "runbook checklist" per incident (stored in incident.details JSON)
-- Reconciliation job (ledger invariant checks): done (Rust, drift gauges); UI report panel still pending
+1. **Operator signal on the map** (#184). Incident badges per zone first (frontend only), then a reconciliation panel.
+   **Trade-off:** the panel needs a new endpoint on both backends and Go has no reconciliation job, so it ships Rust-only with an honest "not available" on Go.
+2. **Decide the Go and Rust parity stance** (#185). Record an ADR: close the gap, or declare Rust the reference backend.
+   **Trade-off:** parity doubles messaging maintenance, a declared gap is cheaper but weakens the "primary implementation" claim. Decide before porting anything.
+3. **Attested releases with an SBOM** (#186). CycloneDX SBOMs, digest-pinned base images, build provenance, signed tags.
+   **Trade-off:** digest pins add Dependabot churn, and admin merges keep Scorecard Code-Review at 0, which is accepted for a solo maintainer.
+4. **Incident runbook checklists** (#187). Stored in `incident.details` JSON, audited per step.
+   **Trade-off:** no migration and both backends stay compatible, queries stay weak until reporting needs a table.
+5. **Community health files** (#188). Small, raises the community profile from 71 to 100 percent.
 
 ### Later
-- Digest-pinned container images
-- SBOM generation (CycloneDX) + artifact upload
-- Regional failover policy (LB) + chaos toggles for the sim
+- Map zoom and pan, only if zones grow beyond ten or operators ask for detail.
+- Dependency graph editor in the UI instead of hardcoded deps.
+- Regional failover policy (LB) and chaos toggles for the sim.
 
 ---
 
