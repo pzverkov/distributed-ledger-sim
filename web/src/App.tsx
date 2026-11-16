@@ -397,6 +397,20 @@ export default function App() {
     return map;
   }, [allIncidents]);
 
+  // Map badges count only unresolved incidents; the tiles keep counting everything.
+  const openIncidentCounts = useMemo(() => {
+    const map = new Map<string, { info: number; warn: number; crit: number }>();
+    for (const inc of allIncidents) {
+      if (inc.status === "RESOLVED") continue;
+      const c = map.get(inc.zone_id) || { info: 0, warn: 0, crit: 0 };
+      if (inc.severity === "CRITICAL") c.crit += 1;
+      else if (inc.severity === "WARN") c.warn += 1;
+      else c.info += 1;
+      map.set(inc.zone_id, c);
+    }
+    return map;
+  }, [allIncidents]);
+
   const highlightIds = useMemo(() => {
     const st = selectedZone?.status || "OK";
     const c = controls;
@@ -471,7 +485,7 @@ export default function App() {
               </div>
             </div>
             <div className="card-b">
-              <ZoneMap zones={zones} selectedId={selectedZoneId} highlightIds={highlightIds} onSelect={setSelectedZoneId} />
+              <ZoneMap zones={zones} selectedId={selectedZoneId} highlightIds={highlightIds} incidentCounts={openIncidentCounts} onSelect={setSelectedZoneId} />
               <div className="zoneGrid">
                 {ZONES.map(meta => {
                   const z = zones.find(zz => zz.id === meta.id);
